@@ -23,7 +23,33 @@ function Gameboard(){
         
     };
     const checkWinner = (player) => {
-        
+        if(board[0][0].getCellValue() === player && board[0][1].getCellValue() === player && board[0][2].getCellValue() === player){
+            return true;
+        }
+        else if(board[1][0].getCellValue() === player && board[1][1].getCellValue() === player && board[1][2].getCellValue() === player){
+            return true;
+        }
+        else if(board[2][0].getCellValue() === player && board[2][1].getCellValue() === player && board[2][2].getCellValue() === player){
+            return true;
+        }
+        else if(board[0][1].getCellValue() === player && board[1][1].getCellValue() === player && board[2][1].getCellValue() === player){
+            return true;
+        }
+        else if(board[0][0].getCellValue() === player && board[1][0].getCellValue() === player && board[2][0].getCellValue() === player){
+            return true;
+        } 
+        else if(board[0][2].getCellValue() === player && board[1][2].getCellValue() === player && board[2][2].getCellValue() === player){
+            return true;
+        }
+        else if(board[0][0].getCellValue() === player && board[1][1].getCellValue() === player && board[2][2].getCellValue() === player){
+            return true;
+        } 
+        else if(board[0][2].getCellValue() === player && board[1][1].getCellValue() === player && board[2][0].getCellValue() === player){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     const printBoard = ()=> {
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getCellValue()))
@@ -79,10 +105,14 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
     };
 
     const playRound = (row,column) => {
-        
-        if(board.dropToken(row, column, getActivePlayer().token)) switchPlayer();
-        console.log(board.checkWinner(getActivePlayer().token));
-        printNewRound();
+        const roundPlayer = getActivePlayer();
+        if(board.dropToken(row, column, roundPlayer.token)){} switchPlayer();
+        if(board.checkWinner(roundPlayer.token)){
+            console.log('winner' + roundPlayer.token)
+        }
+        else{
+            printNewRound();
+        }
     }
 
     printNewRound();
