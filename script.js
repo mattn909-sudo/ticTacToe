@@ -73,6 +73,10 @@ function Gameboard(){
             return false;
         }
     }
+
+    const checkTie{
+        
+    }
     const printBoard = ()=> {
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getCellValue()));
         for(let i = 1; i< 10; i++){
@@ -145,10 +149,12 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
 
     const playRound = (cell) => {
         const roundPlayer = getActivePlayer();
-        status.textContent = roundPlayer.token === 1 ? 'Player X turn' : 'Player O turn';
-        if(board.dropToken(cell, roundPlayer.token) === 1){} switchPlayer();
+        if(board.dropToken(cell, roundPlayer.token) === 1){
+            switchPlayer();
+            status.textContent = roundPlayer.token === 1 ? 'Player O turn' : 'Player X turn';
+        }
         if(board.checkWinner(roundPlayer.token)){
-            status.textContent = roundPlayer.token === 1 ? 'Player X wins!' + 'Press the button to start a New Game': 'Player O wins!' + 'Press the button to start a New Game';
+            status.textContent = roundPlayer.token === 1 ? 'Player X wins! Press the button to start a New Game': 'Player O wins! Press the button to start a New Game';
             printNewRound();
             winner = true;
         }

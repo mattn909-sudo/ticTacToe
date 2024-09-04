@@ -13,6 +13,11 @@ body{
 }
 
 .header{
+    font-size: 5rem;
+}
+
+.status{
+    font-size: 2rem;
 }
 
 .gameboard{
