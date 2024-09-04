@@ -1,19 +1,25 @@
 body{
+    height: 100vh;
     box-sizing: border-box;
     margin: 0;
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    flex:1;
     background-color: #06D6A0;
+    font-family: andale mono, monospace;
+}
+
+.header{
 }
 
 .gameboard{
     background-color: 06D6A0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 15px;
     height: 50vh;
     width: 50vh;
@@ -27,4 +33,41 @@ body{
 .cell{
     background-color: #FFD166;
     border-radius: 5px;
+}
+
+.cell div{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11rem;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.new{
+    background-color: #073B4C;
+    width: 25%;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 5px;
+
+}
+
+.new:hover{
+    color: #073B4C;
+    border-color: #073B4C;
+    background-color: white;
+    cursor: pointer;
 }
