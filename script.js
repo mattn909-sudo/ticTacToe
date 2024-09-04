@@ -34,12 +34,10 @@ function Gameboard(){
 
     const dropToken = (cell, player) => {
         if(board[cellDict[cell][0]][cellDict[cell][1]].getCellValue() !==0){
-            console.log(player + ' played a turn but cell is occupied');
             return 0;
         } 
         else{
             board[cellDict[cell][0]][cellDict[cell][1]].addToken(player);
-            console.log(player + ' played a turn');
             return 1;
         }
         
@@ -104,7 +102,6 @@ function Gameboard(){
             }
 
         }
-        console.log(boardWithCellValues);
     }
 
     return{
@@ -134,11 +131,7 @@ function Cell(){
 
 function GameController(playerOneName = 'X', playerTwoName = 'O'){
     const status = document.querySelector('.status');
-    status.textContent = 'Player X turn';
     const board = Gameboard();
-    board.createBoard();
-    let winner = false;
-    let tie = false;
 
     players = [{
         name: playerOneName,
@@ -185,6 +178,15 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
         }
     }
 
+    const init = () => {
+        board.createBoard();
+        winner = false;
+        tie = false;
+        setActivePlayer(players[0]);
+        printNewRound();
+        status.textContent = 'Player X turn';
+    }
+
     const myDiv = document.querySelector('.gameboard');
 
     myDiv.addEventListener('click', function(e) {
@@ -197,15 +199,11 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
 
     const newGame = document.querySelector('.new');
     newGame.addEventListener('click', function() {
-        console.log('test');
-        board.createBoard();
-        winner = false;
-        tie = false;
-        setActivePlayer(players[0]);
-        printNewRound();
-        status.textContent = 'Player X turn';
+        init();
     });
-    printNewRound();
+    
+    init();
+
     return{
         playRound,
         getActivePlayer
