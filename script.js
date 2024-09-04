@@ -74,8 +74,21 @@ function Gameboard(){
         }
     }
 
-    const checkTie{
-        
+    const checkTie= ()=> {
+        let openCell = false;
+        for(let row of board){
+            for(let cell of row){
+                if(cell.getCellValue() === 0){
+                    openCell = true;
+                }
+            }
+        }
+        if(!openCell){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     const printBoard = ()=> {
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getCellValue()));
@@ -99,6 +112,7 @@ function Gameboard(){
         dropToken,
         printBoard,
         checkWinner,
+        checkTie,
         createBoard
     }
 
@@ -124,6 +138,8 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
     const board = Gameboard();
     board.createBoard();
     let winner = false;
+    let tie = false;
+
     players = [{
         name: playerOneName,
         token: 1
@@ -135,6 +151,7 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
     }];
 
     let activePlayer = players[0];
+
     const setActivePlayer = (player) => activePlayer = player;
 
     const getActivePlayer = () => activePlayer;
@@ -158,6 +175,11 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
             printNewRound();
             winner = true;
         }
+        else if(board.checkTie()){
+            status.textContent = 'Game ended in a tie! Press the button to start a New Game';
+            tie = true;
+            printNewRound();
+        }
         else{       
             printNewRound();
         }
@@ -166,7 +188,7 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
     const myDiv = document.querySelector('.gameboard');
 
     myDiv.addEventListener('click', function(e) {
-        if(!winner){
+        if(!winner && !tie){
             playRound(e.target.id);
         }
             
@@ -178,6 +200,7 @@ function GameController(playerOneName = 'X', playerTwoName = 'O'){
         console.log('test');
         board.createBoard();
         winner = false;
+        tie = false;
         setActivePlayer(players[0]);
         printNewRound();
         status.textContent = 'Player X turn';
